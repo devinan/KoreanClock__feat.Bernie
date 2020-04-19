@@ -1,33 +1,97 @@
 const widget = document.getElementsByClassName("widget");
 
-// 6 13 20 27 34
-const getTime = (): void => {
-  const time = new Date();
-  const hour = time.getHours();
-  const min = time.getMinutes();
+let htmlElements = [];
+const LIGHT = "on";
+
+const amClock = (time: object) => {};
+const pmClock = (time: object) => {
+  const minus12 = time["hour"] - 12;
+  let static: string;
+  if (minus12 < 10) {
+    static = `0${minus12}`;
+  } else {
+    static = String(minus12);
+  }
+  const hourCase = static.split("");
+
+  htmlElements[5].classList = LIGHT;
+  if (hourCase[0] === "1") {
+    htmlElements[14].classList = LIGHT;
+  }
+  switch (hourCase[1]) {
+    case "0":
+      htmlElements[32].classList = "";
+      break;
+    case "1":
+      if (hourCase[0] === "0") {
+        htmlElements[0].classList = LIGHT;
+      } else {
+        htmlElements[20].classList = LIGHT;
+      }
+      break;
+    case "2":
+      htmlElements[6].classList = LIGHT;
+      break;
+    case "3":
+      htmlElements[12].classList = LIGHT;
+      break;
+    case "4":
+      htmlElements[18].classList = LIGHT;
+      break;
+    case "5":
+      htmlElements[24].classList = LIGHT;
+      htmlElements[30].classList = LIGHT;
+      break;
+    case "6":
+      htmlElements[1].classList = LIGHT;
+      htmlElements[7].classList = LIGHT;
+      break;
+    case "7":
+      htmlElements[13].classList = LIGHT;
+      htmlElements[19].classList = LIGHT;
+      break;
+    case "8":
+      htmlElements[25].classList = LIGHT;
+      htmlElements[31].classList = LIGHT;
+      break;
+    case "9":
+      htmlElements[2].classList = LIGHT;
+      htmlElements[8].classList = LIGHT;
+      break;
+  }
+  console.log(hourCase);
+};
+
+const getTime = (): object => {
+  const currentTime = new Date();
+  const hour = currentTime.getHours();
+  const min = currentTime.getMinutes();
   const ampm = hour >= 12 ? "pm" : "am";
-  console.log(hour, min, ampm);
-  let htmlElements = [];
+  const time = { hour, min, ampm };
+  return time;
+};
+
+const getElements = (time: object): void => {
   for (let a = 0; a < 6; a++) {
     for (let i = a; i < 41; i += 7) {
       htmlElements.push(widget[0].children[i]);
     }
   }
+  htmlElements[3].classList = LIGHT;
+  htmlElements[32].classList = LIGHT;
+  htmlElements[35].classList = LIGHT;
+  if (time["ampm"] === "am") {
+    amClock(time);
+  } else {
+    pmClock(time);
+  }
   console.log(htmlElements);
-  /*
-    아이디로 html Element 가져오기 (o)
-      근데 너무 코드가 조잡해서 마음에 안듦....ㅠㅠ
-    클래스로 표시, 비표시 구분 -> class = "now" -> 빛
-    조건문1 오후 오전 나누기
-    오후 오전 따로 시간 표시 함수
-        정오, 자정 함수
-    분 표시 함수
-  */
 };
 
 const init = () => {
-  //setInterval(getTime, 1000);
-  getTime();
+  //const currentTime = setInterval(getTime, 1000);
+  const currentTime = getTime();
+  getElements(currentTime);
 };
 
 init();
