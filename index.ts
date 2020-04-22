@@ -15,12 +15,14 @@ const pmClock = (time: object) => {
   const hourCase = static.split("");
 
   htmlElements[5].classList = LIGHT;
-  if (hourCase[0] === "1") {
+  if (hourCase[0] === "1" || static === "00") {
     htmlElements[14].classList = LIGHT;
   }
   switch (hourCase[1]) {
     case "0":
-      htmlElements[32].classList = "";
+      if (hourCase[0] === "0") {
+        htmlElements[26].classList = LIGHT;
+      }
       break;
     case "1":
       if (hourCase[0] === "0") {
