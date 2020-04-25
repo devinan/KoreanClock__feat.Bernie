@@ -164,11 +164,7 @@ const getElements = (time: object): void => {
   }
   setHour(time);
   setMinute(time);
+  setTimeout(getTime, 1000);
 };
 
-const init = () => {
-  setInterval(getTime, 1000);
-  //getTime();
-};
-
-init();
+getTime();
