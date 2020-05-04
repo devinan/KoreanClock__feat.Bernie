@@ -147,6 +147,7 @@ const getElements = (time: object): void => {
   for (let a = 0; a < 6; a++) {
     for (let i = a; i < 41; i += 7) {
       htmlElements.push(widget[0].children[i]);
+      widget[0].children[i].classList.remove(LIGHT);
     }
   }
   htmlElements.sort((a, b) => {
@@ -164,7 +165,7 @@ const getElements = (time: object): void => {
   }
   setHour(time);
   setMinute(time);
-  setTimeout(getTime, 1000);
+  setTimeout(getTime, 10000);
 };
 
 getTime();
