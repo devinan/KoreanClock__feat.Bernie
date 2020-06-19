@@ -71,16 +71,25 @@ const setHour = (time: object): void => {
 const setMinute = (time: object): void => {
   const minute = time["min"];
   let static: string;
+
   if (minute < 10) {
     static = `0${minute}`;
   } else {
     static = String(minute);
   }
-
   const minuteCase = static.split("");
+
+  //teststart
+  //testend
+
+  if (minuteCase[0] === "0" && minuteCase[1] === "0") {
+    htmlElements[35].classList.remove(LIGHT);
+  }
+
   htmlElements[23].classList.add(LIGHT);
   switch (minuteCase[0]) {
-    case "1":
+    case "0":
+      htmlElements[23].classList.remove(LIGHT);
       break;
     case "2":
       htmlElements[19].classList.add(LIGHT);
@@ -93,9 +102,6 @@ const setMinute = (time: object): void => {
       break;
     case "5":
       htmlElements[22].classList.add(LIGHT);
-      break;
-    default:
-      htmlElements[23].classList.remove(LIGHT);
       break;
   }
 
@@ -127,9 +133,6 @@ const setMinute = (time: object): void => {
     case "9":
       htmlElements[34].classList.add(LIGHT);
       break;
-    default:
-      htmlElements[35].classList.remove(LIGHT);
-      break;
   }
 };
 
@@ -153,6 +156,8 @@ const getElements = (time: object): void => {
   htmlElements.sort((a, b) => {
     return a.classList[0] - b.classList[0];
   });
+
+  //console.log(htmlElements);
 
   htmlElements[17].classList.add(LIGHT);
   htmlElements[18].classList.add(LIGHT);
