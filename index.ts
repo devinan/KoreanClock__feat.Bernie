@@ -1,11 +1,24 @@
-const widget = document.getElementsByClassName("widget");
+const widgetDefault = document.getElementsByClassName("widgetDefault");
+const widgetMilitary = document.getElementsByClassName("widgetMilitary");
 
-let htmlElements = [];
+let defaultElements = [];
+let militaryElements = [];
+let azeElements = [];
 const LIGHT = "on";
 
-const setHour = (time: object): void => {
+const setDefaultHour = (time: object): void => {
   let timeset12: number;
   let static: string;
+
+  defaultElements[17].classList.add(LIGHT);
+  defaultElements[18].classList.add(LIGHT);
+  defaultElements[35].classList.add(LIGHT);
+
+  if (time["ampm"] === "am") {
+    defaultElements[24].classList.add(LIGHT);
+  } else {
+    defaultElements[30].classList.add(LIGHT);
+  }
 
   if (time["ampm"] === "pm") {
     timeset12 = time["hour"] - 12;
@@ -21,49 +34,49 @@ const setHour = (time: object): void => {
   const hourCase = static.split("");
 
   if (hourCase[0] === "1" || static === "00") {
-    htmlElements[14].classList.add(LIGHT);
+    defaultElements[14].classList.add(LIGHT);
   }
   switch (hourCase[1]) {
     case "0":
       if (hourCase[0] === "0") {
-        htmlElements[16].classList.add(LIGHT);
+        defaultElements[16].classList.add(LIGHT);
       }
       break;
     case "1":
       if (hourCase[0] === "0") {
-        htmlElements[0].classList.add(LIGHT);
+        defaultElements[0].classList.add(LIGHT);
       } else {
-        htmlElements[15].classList.add(LIGHT);
+        defaultElements[15].classList.add(LIGHT);
       }
       break;
     case "2":
-      htmlElements[1].classList.add(LIGHT);
+      defaultElements[1].classList.add(LIGHT);
       break;
     case "3":
-      htmlElements[2].classList.add(LIGHT);
+      defaultElements[2].classList.add(LIGHT);
       break;
     case "4":
-      htmlElements[3].classList.add(LIGHT);
+      defaultElements[3].classList.add(LIGHT);
       break;
     case "5":
-      htmlElements[4].classList.add(LIGHT);
-      htmlElements[5].classList.add(LIGHT);
+      defaultElements[4].classList.add(LIGHT);
+      defaultElements[5].classList.add(LIGHT);
       break;
     case "6":
-      htmlElements[6].classList.add(LIGHT);
-      htmlElements[7].classList.add(LIGHT);
+      defaultElements[6].classList.add(LIGHT);
+      defaultElements[7].classList.add(LIGHT);
       break;
     case "7":
-      htmlElements[8].classList.add(LIGHT);
-      htmlElements[9].classList.add(LIGHT);
+      defaultElements[8].classList.add(LIGHT);
+      defaultElements[9].classList.add(LIGHT);
       break;
     case "8":
-      htmlElements[10].classList.add(LIGHT);
-      htmlElements[11].classList.add(LIGHT);
+      defaultElements[10].classList.add(LIGHT);
+      defaultElements[11].classList.add(LIGHT);
       break;
     case "9":
-      htmlElements[12].classList.add(LIGHT);
-      htmlElements[13].classList.add(LIGHT);
+      defaultElements[12].classList.add(LIGHT);
+      defaultElements[13].classList.add(LIGHT);
       break;
   }
 };
@@ -83,94 +96,183 @@ const setMinute = (time: object): void => {
   //testend
 
   if (minuteCase[0] === "0" && minuteCase[1] === "0") {
-    htmlElements[35].classList.remove(LIGHT);
+    defaultElements[35].classList.remove(LIGHT);
+    militaryElements[29].classList.remove(LIGHT);
   }
 
-  htmlElements[23].classList.add(LIGHT);
+  defaultElements[23].classList.add(LIGHT);
+  militaryElements[17].classList.add(LIGHT);
+
   switch (minuteCase[0]) {
     case "0":
-      htmlElements[23].classList.remove(LIGHT);
+      defaultElements[23].classList.remove(LIGHT);
+      militaryElements[17].classList.remove(LIGHT);
       break;
     case "2":
-      htmlElements[19].classList.add(LIGHT);
+      defaultElements[19].classList.add(LIGHT);
+      militaryElements[13].classList.add(LIGHT);
       break;
     case "3":
-      htmlElements[20].classList.add(LIGHT);
+      defaultElements[20].classList.add(LIGHT);
+      militaryElements[14].classList.add(LIGHT);
       break;
     case "4":
-      htmlElements[21].classList.add(LIGHT);
+      defaultElements[21].classList.add(LIGHT);
+      militaryElements[15].classList.add(LIGHT);
       break;
     case "5":
-      htmlElements[22].classList.add(LIGHT);
+      defaultElements[22].classList.add(LIGHT);
+      militaryElements[16].classList.add(LIGHT);
       break;
   }
 
   switch (minuteCase[1]) {
     case "1":
-      htmlElements[25].classList.add(LIGHT);
+      defaultElements[25].classList.add(LIGHT);
+      militaryElements[19].classList.add(LIGHT);
       break;
     case "2":
-      htmlElements[26].classList.add(LIGHT);
+      defaultElements[26].classList.add(LIGHT);
+      militaryElements[20].classList.add(LIGHT);
       break;
     case "3":
-      htmlElements[27].classList.add(LIGHT);
+      defaultElements[27].classList.add(LIGHT);
+      militaryElements[21].classList.add(LIGHT);
       break;
     case "4":
-      htmlElements[28].classList.add(LIGHT);
+      defaultElements[28].classList.add(LIGHT);
+      militaryElements[22].classList.add(LIGHT);
       break;
     case "5":
-      htmlElements[29].classList.add(LIGHT);
+      defaultElements[29].classList.add(LIGHT);
+      militaryElements[23].classList.add(LIGHT);
       break;
     case "6":
-      htmlElements[31].classList.add(LIGHT);
+      defaultElements[31].classList.add(LIGHT);
+      militaryElements[25].classList.add(LIGHT);
       break;
     case "7":
-      htmlElements[32].classList.add(LIGHT);
+      defaultElements[32].classList.add(LIGHT);
+      militaryElements[26].classList.add(LIGHT);
       break;
     case "8":
-      htmlElements[33].classList.add(LIGHT);
+      defaultElements[33].classList.add(LIGHT);
+      militaryElements[27].classList.add(LIGHT);
       break;
     case "9":
-      htmlElements[34].classList.add(LIGHT);
+      defaultElements[34].classList.add(LIGHT);
+      militaryElements[28].classList.add(LIGHT);
       break;
   }
 };
 
-const getTime = (): void => {
-  htmlElements = [];
+const setMilitaryHour = (time: object): void => {
+  const hour = time["hour"];
+  let static: string;
+
+  militaryElements[12].classList.add(LIGHT);
+  militaryElements[29].classList.add(LIGHT);
+  militaryElements[18].classList.add(LIGHT);
+  militaryElements[24].classList.add(LIGHT);
+
+  if (hour < 10) {
+    static = `0${hour}`;
+  } else {
+    static = String(hour);
+  }
+  const hourCase = static.split("");
+
+  switch (hourCase[0]) {
+    case "0":
+      militaryElements[0].classList.add(LIGHT);
+      break;
+    case "1":
+      militaryElements[2].classList.add(LIGHT);
+      break;
+    case "2":
+      militaryElements[1].classList.add(LIGHT);
+      militaryElements[2].classList.add(LIGHT);
+  }
+
+  switch (hourCase[1]) {
+    case "1":
+      militaryElements[3].classList.add(LIGHT);
+      break;
+    case "2":
+      militaryElements[4].classList.add(LIGHT);
+      break;
+    case "3":
+      militaryElements[5].classList.add(LIGHT);
+      break;
+    case "4":
+      militaryElements[6].classList.add(LIGHT);
+      break;
+    case "5":
+      militaryElements[7].classList.add(LIGHT);
+      break;
+    case "6":
+      militaryElements[8].classList.add(LIGHT);
+      break;
+    case "7":
+      militaryElements[9].classList.add(LIGHT);
+      break;
+    case "8":
+      militaryElements[10].classList.add(LIGHT);
+      break;
+    case "9":
+      militaryElements[11].classList.add(LIGHT);
+      break;
+  }
+};
+
+const getTime = (): object => {
   const currentTime = new Date();
   const hour = currentTime.getHours();
   const min = currentTime.getMinutes();
   const ampm = hour >= 12 ? "pm" : "am";
   const time = { hour, min, ampm };
-  getElements(time);
+  return time;
 };
 
-const getElements = (time: object): void => {
+const getElements = (): void => {
+  defaultElements = [];
+  militaryElements = [];
+  azeElements = [];
+
   for (let a = 0; a < 6; a++) {
     for (let i = a; i < 41; i += 7) {
-      htmlElements.push(widget[0].children[i]);
-      widget[0].children[i].classList.remove(LIGHT);
+      defaultElements.push(widgetDefault[0].children[i]);
+      widgetDefault[0].children[i].classList.remove(LIGHT);
     }
   }
-  htmlElements.sort((a, b) => {
+  defaultElements.sort((a, b) => {
     return a.classList[0] - b.classList[0];
   });
 
-  //console.log(htmlElements);
+  //console.log(widgetMilitary[0].children);
 
-  htmlElements[17].classList.add(LIGHT);
-  htmlElements[18].classList.add(LIGHT);
-  htmlElements[35].classList.add(LIGHT);
-
-  if (time["ampm"] === "am") {
-    htmlElements[24].classList.add(LIGHT);
-  } else {
-    htmlElements[30].classList.add(LIGHT);
+  for (let a = 0; a < 6; a++) {
+    for (let i = a; i < 35; i += 7) {
+      militaryElements.push(widgetMilitary[0].children[i]);
+      widgetMilitary[0].children[i].classList.remove(LIGHT);
+    }
   }
-  setHour(time);
-  setMinute(time);
-  setTimeout(getTime, 10000);
+  militaryElements.sort((a, b) => {
+    return a.classList[0] - b.classList[0];
+  });
+
+  console.log(defaultElements);
+  console.log(militaryElements);
+  //console.log(azeElements);
 };
 
-getTime();
+const init = (): void => {
+  const time = getTime();
+  getElements();
+  setDefaultHour(time);
+  setMilitaryHour(time);
+  setMinute(time);
+};
+
+init();
+setInterval(init, 10000);
